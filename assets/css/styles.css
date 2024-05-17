@@ -1,0 +1,85 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    padding: 0 10px;
+}
+
+header {
+    text-align: center;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+/* Add task */
+.add-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-task input {
+    font-size: 1.2rem;
+    width: 100%;
+    padding: 5px;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* List */
+.todo ul {
+    list-style: none;
+    padding: 0;
+}
+.todo li{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.todo .task-name {
+    margin-right: auto;
+}
+
+.todo .completed {
+    opacity: 0.5;
+}
+.todo .completed .task-name{
+    text-decoration: line-through;
+}
+
+/* checkbox button */
+.checkbox-button .selected{
+    display: none;
+}
+
+.completed .checkbox-button .unselected{
+    display: none;
+}
+
+.completed .checkbox-button .selected{
+    display: block;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0;
+    background-color: #b4b4b4c9
+}
