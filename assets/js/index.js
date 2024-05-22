@@ -60,7 +60,6 @@ const reloadTaskList = () => {
 const addTaskHandler = (evt) => {
     const name = elements.nameInput.value;
     let dueDate = elements.dueDateInput.value;
-    elements.dueDateInput.value = '';
     if (name) {
         let task = createTask(name, dueDate);
         reloadTaskList();
