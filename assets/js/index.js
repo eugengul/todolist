@@ -17,7 +17,7 @@ const addTaskEl = (task) => {
     const taskEl = taskTemplateClone.querySelector('.task');
 
     taskEl.setAttribute('data-task-id', task.id);
-    if (task.finished) taskEl.classList.add('completed');
+    if (task.completed) taskEl.classList.add('completed');
     const taskNameEl = taskEl.querySelector('.task-name');
     taskNameEl.textContent = task.name;
 

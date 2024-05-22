@@ -8,8 +8,8 @@ class Task {
     constructor(name, dueDate) {
         this.id = self.crypto.randomUUID();
         this.name = name;
-        this.finished = false;
         this.dueDate = dueDate;
+        this.completed = false;
     }
 }
 
@@ -27,7 +27,7 @@ const deleteTask = (task_id) => {
 
 const toggleTask = (task_id) => {
     let task = tasks.get(task_id);
-    task.finished = !task.finished;
+    task.completed = !task.completed;
     storeTasks();
 }
 
