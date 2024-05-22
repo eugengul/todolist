@@ -25,7 +25,7 @@ const addTaskEl = (task) => {
     if (task.dueDate) {
         const currentDate = dateToMilliseconds(new Date());
         let dueDate = dateToMilliseconds(new Date(task.dueDate));
-
+        // due date has different colors for future, past and today
         const dueDateEl = taskEl.querySelector('.due-date');
         if (currentDate > dueDate) {
             dueDateEl.classList.add('failed');
@@ -35,12 +35,21 @@ const addTaskEl = (task) => {
         dueDateEl.textContent = new Date(task.dueDate).toDateString();
     }
 
+    // set values for input elements
+    const nameInput = taskEl.querySelector('.task-edit input[name=name]');
+    nameInput.value = task.name;
+    const dateInput = taskEl.querySelector('.task-edit input[name=due-date]');
+    if (task.dueDate) dateInput.value = task.dueDate;
+
     // Add event listeners
     const deleteButton = taskEl.querySelector('.delete-button');
     deleteButton.addEventListener('click', removeTaskHandler);
     const checkboxButton = taskEl.querySelector('.checkbox-button');
     checkboxButton.addEventListener('click', toggleTaskHandler);
-
+    const editButton = taskEl.querySelector('.edit-button');
+    editButton.addEventListener('click', editTaskHandler);
+    const saveButton = taskEl.querySelector('.save-button');
+    saveButton.addEventListener('click', saveTaskHandler);
     elements.todoUl.append(taskEl);
 };
 
@@ -66,6 +75,22 @@ const addTaskHandler = (evt) => {
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');
     }
+}
+
+const editTaskHandler = (evt) => {
+    const taskEl = evt.currentTarget.closest('.task');
+    taskEl.classList.add('edit');
+}
+
+const saveTaskHandler = (evt) => {
+    const taskEl = evt.currentTarget.closest('.task');
+    const task_id = taskEl.getAttribute('data-task-id');
+    let nameEl = taskEl.querySelector('.task-edit input[name=name]');
+    let dueDateEl = taskEl.querySelector('.task-edit input[name=due-date]');
+
+    saveTask(task_id, nameEl.value, dueDateEl.value);
+    reloadTaskList();
+
 }
 
 const removeTaskHandler = (evt) => {

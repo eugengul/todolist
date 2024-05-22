@@ -46,6 +46,7 @@ footer {
 }
 
 .add-task input[name="name"] {
+    flex-grow: 1;
     flex-basis: 200px;
 }
 
@@ -69,6 +70,13 @@ footer {
     padding: 5px;
     background-color: #eee;
     border-radius: 5px;
+}
+
+.todo .task-info {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .todo .task-name {
@@ -95,6 +103,44 @@ footer {
     text-decoration: line-through;
 }
 
+/* Edit task */
+.task-edit {
+    display: none;
+}
+
+.task-edit {
+    flex-grow: 1;
+    display: none;
+    gap: 10px;
+    align-items: center;
+}
+
+.task-edit input {
+    font-size: 1.2rem;
+}
+
+.task-edit input[name="name"] {
+    flex-grow: 1;
+    flex-basis: 200px;
+}
+
+.task-edit input[name="due-date"] {
+    flex-grow: 0;
+    flex-basis: 170px;
+}
+
+.task.edit .task-info {
+    display: none;
+}
+
+.task.edit .task-edit {
+    display: flex;
+}
+
+.task.edit .edit-button {
+    background-color: #0099ff;
+}
+
 /* checkbox button */
 .checkbox-button .selected{
     display: none;
@@ -116,7 +162,7 @@ button {
     border-radius: 5px;
     padding: 5px;
     margin: 0;
-    background-color: #b4b4b4c9;
+    background-color: #c5c5c5c9;
 }
 
 button:hover {

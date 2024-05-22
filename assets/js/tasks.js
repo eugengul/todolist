@@ -25,6 +25,13 @@ const deleteTask = (task_id) => {
     storeTasks();
 }
 
+const saveTask = (task_id, name, dueDate) => {
+    let task = tasks.get(task_id);
+    task.name = name;
+    task.dueDate = dueDate;
+    storeTasks();
+}
+
 const toggleTask = (task_id) => {
     let task = tasks.get(task_id);
     task.completed = !task.completed;
