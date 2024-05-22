@@ -6,6 +6,7 @@ const elements = {};
 // FUNKTIONEN
 const domMapping = () => {
     elements.addButton = document.querySelector('.add-button');
+    elements.deleteCompletedButton = document.querySelector('#delete-completed');
     elements.nameInput = document.querySelector('.add-task input[name="name"]');
     elements.dueDateInput = document.querySelector('.add-task input[name="due-date"]');
     elements.todoUl = document.querySelector('.todo-list');
@@ -43,7 +44,12 @@ const addTaskEl = (task) => {
     elements.todoUl.append(taskEl);
 };
 
+const cleanTaskList = () => {
+    elements.todoUl.innerHTML = '';
+}
+
 const reloadTaskList = () => {
+    cleanTaskList();
     for (const task of tasks.values()) {
         addTaskEl(task);
     }
@@ -76,10 +82,17 @@ const toggleTaskHandler = (evt) => {
 
     const task_id = taskEl.getAttribute('data-task-id');
     toggleTask(task_id);
+    reloadTaskList();
+}
+
+const deleteCompletedHandler = () => {
+    deleteCompletedTasks();
+    reloadTaskList();
 }
 
 const appendEventlisteners = () => {
     elements.addButton.addEventListener('click', addTaskHandler);
+    elements.deleteCompletedButton.addEventListener('click', deleteCompletedHandler);
 }
 
 const init = () => {

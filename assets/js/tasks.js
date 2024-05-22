@@ -35,3 +35,11 @@ const storeTasks = () => {
     let tasks_json = JSON.stringify([...tasks]);
     localStorage.setItem('tasks', tasks_json);
 }
+
+const deleteCompletedTasks = () => {
+    for (const task of tasks.values()) {
+        if (task.completed) tasks.delete(task.id);
+    }
+    storeTasks();
+    reloadTaskList();
+}

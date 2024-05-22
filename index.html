@@ -16,6 +16,7 @@
 <body>
     <header>
         <h1>To Do List</h1>
+        <button id="delete-completed">Erledigte Aufgaben löschen.</button>
     </header>
     <main>
         <div class="todo">
@@ -24,23 +25,23 @@
                 <input type="date" name="due-date" placeholder="Due date">
                 <button class="add-button"><img src="./assets/images/icons/add.svg"></button>
             </div>
+            <template id="task-template">
+                <li class="task" data-task-id="0">
+                    <button class="checkbox-button">
+                        <img class="unselected" src="./assets/images/icons/check_box.svg" alt="Check box icon">
+                        <img class="selected" src="./assets/images/icons/select_check_box.svg" alt="Check box icon">
+                    </button>
+                    <span class="task-name">Einkaufen gehen</span>
+                    <span class="due-date"></span>
+                    <button class="edit-button">
+                        <img src="./assets/images/icons/edit.svg" alt="Edit icon">
+                    </button>
+                    <button class="delete-button">
+                        <img src="./assets/images/icons/delete.svg" alt="Delete icon">
+                    </button>
+                </li>
+            </template>
             <ul class="todo-list">
-                <template id="task-template">
-                    <li class="task" data-task-id="0">
-                        <button class="checkbox-button">
-                            <img class="unselected" src="./assets/images/icons/check_box.svg" alt="Check box icon">
-                            <img class="selected" src="./assets/images/icons/select_check_box.svg" alt="Check box icon">
-                        </button>
-                        <span class="task-name">Einkaufen gehen</span>
-                        <span class="due-date"></span>
-                        <button class="edit-button">
-                            <img src="./assets/images/icons/edit.svg" alt="Edit icon">
-                        </button>
-                        <button class="delete-button">
-                            <img src="./assets/images/icons/delete.svg" alt="Delete icon">
-                        </button>
-                    </li>
-                </template>
             </ul>
         </div>
     </main>

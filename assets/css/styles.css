@@ -5,7 +5,19 @@ body {
 }
 
 header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin-right: auto;
+}
+
+header #delete-completed {
+    color: #ffffff;
+    background-color: #0099ff;
+    height: fit-content;
+    padding: 10px;
 }
 
 footer {
