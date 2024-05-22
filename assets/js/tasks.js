@@ -43,3 +43,8 @@ const deleteCompletedTasks = () => {
     storeTasks();
     reloadTaskList();
 }
+
+const sortTasksByCompletion = () => {
+    return new Map([...tasks.entries()].sort(
+        (a, b) => a[1].completed > b[1].completed));
+}

@@ -50,7 +50,8 @@ const cleanTaskList = () => {
 
 const reloadTaskList = () => {
     cleanTaskList();
-    for (const task of tasks.values()) {
+    const SortedTasks = sortTasksByCompletion();
+    for (const task of SortedTasks.values()) {
         addTaskEl(task);
     }
 }
@@ -62,7 +63,7 @@ const addTaskHandler = (evt) => {
     elements.dueDateInput.value = '';
     if (name) {
         let task = createTask(name, dueDate);
-        addTaskEl(task);
+        reloadTaskList();
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');
     }
