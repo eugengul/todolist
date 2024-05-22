@@ -5,15 +5,16 @@ let tasks_json = localStorage.getItem('tasks');
 const tasks = new Map(JSON.parse(tasks_json));
 
 class Task {
-    constructor(name) {
+    constructor(name, dueDate) {
         this.id = self.crypto.randomUUID();
         this.name = name;
         this.finished = false;
+        this.dueDate = dueDate;
     }
 }
 
-const createTask = (name) => {
-    let task = new Task(name);
+const createTask = (name, dueDate) => {
+    let task = new Task(name, dueDate);
     tasks.set(task.id, task);
     storeTasks();
     return task;

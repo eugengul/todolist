@@ -7,6 +7,7 @@ const elements = {};
 const domMapping = () => {
     elements.addButton = document.querySelector('.add-button');
     elements.nameInput = document.querySelector('.add-task input[name="name"]');
+    elements.dueDateInput = document.querySelector('.add-task input[name="due-date"]');
     elements.todoUl = document.querySelector('.todo-list');
 }
 
@@ -19,6 +20,19 @@ const addTaskEl = (task) => {
     if (task.finished) taskEl.classList.add('completed');
     const taskNameEl = taskEl.querySelector('.task-name');
     taskNameEl.textContent = task.name;
+
+    if (task.dueDate) {
+        const currentDate = dateToMilliseconds(new Date());
+        let dueDate = dateToMilliseconds(new Date(task.dueDate));
+
+        const dueDateEl = taskEl.querySelector('.due-date');
+        if (currentDate > dueDate) {
+            dueDateEl.classList.add('failed');
+        } else if (currentDate == dueDate) {
+            dueDateEl.classList.add('today')
+        }
+        dueDateEl.textContent = new Date(task.dueDate).toDateString();
+    }
 
     // Add event listeners
     const deleteButton = taskEl.querySelector('.delete-button');
@@ -38,8 +52,10 @@ const reloadTaskList = () => {
 // EVENT HANDLERS
 const addTaskHandler = (evt) => {
     const name = elements.nameInput.value;
+    let dueDate = elements.dueDateInput.value;
+    elements.dueDateInput.value = '';
     if (name) {
-        let task = createTask(name)
+        let task = createTask(name, dueDate);
         addTaskEl(task);
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');

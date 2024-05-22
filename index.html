@@ -8,6 +8,7 @@
     <title>To Do List</title>
     <link rel="stylesheet" href="./assets/css/styles.css" />
 
+    <script src="./assets/js/helpers.js" defer></script>
     <script src="./assets/js/tasks.js" defer></script>
     <script src="./assets/js/index.js" defer></script>
 </head>
@@ -20,6 +21,7 @@
         <div class="todo">
             <div class="add-task">
                 <input name="name" placeholder="Aufgabenname">
+                <input type="date" name="due-date" placeholder="Due date">
                 <button class="add-button"><img src="./assets/images/icons/add.svg"></button>
             </div>
             <ul class="todo-list">
@@ -30,6 +32,7 @@
                             <img class="selected" src="./assets/images/icons/select_check_box.svg" alt="Check box icon">
                         </button>
                         <span class="task-name">Einkaufen gehen</span>
+                        <span class="due-date"></span>
                         <button class="edit-button">
                             <img src="./assets/images/icons/edit.svg" alt="Edit icon">
                         </button>
