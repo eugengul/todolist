@@ -35,7 +35,7 @@ footer {
     gap: 10px;
 }
 
-.add-task input {
+.add-task input, select {
     flex: 1;
     width: 0;
     font-size: 1.2rem;
@@ -45,8 +45,12 @@ footer {
     box-sizing: border-box;
 }
 
+.add-task select {
+    flex-grow: 0;
+    flex-basis: 120px;
+}
+
 .add-task input[name="name"] {
-    flex-grow: 1;
     flex-basis: 200px;
 }
 
@@ -60,7 +64,7 @@ footer {
     list-style: none;
     padding: 0;
 }
-.todo li{
+.todo li {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -99,8 +103,16 @@ footer {
 .todo .completed {
     opacity: 0.5;
 }
-.todo .completed .task-name{
+.todo .completed .task-name {
     text-decoration: line-through;
+}
+
+.todo-list .priority-medium .checkbox-button {
+    background-color: #c5800059;
+}
+
+.todo-list .priority-high .checkbox-button {
+    background-color: #b8000059;
 }
 
 /* Edit task */
@@ -142,15 +154,15 @@ footer {
 }
 
 /* checkbox button */
-.checkbox-button .selected{
+.checkbox-button .selected {
     display: none;
 }
 
-.completed .checkbox-button .unselected{
+.completed .checkbox-button .unselected {
     display: none;
 }
 
-.completed .checkbox-button .selected{
+.completed .checkbox-button .selected {
     display: block;
 }
 

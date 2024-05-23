@@ -5,16 +5,17 @@ const tasks_json = localStorage.getItem('tasks');
 const tasks = new Map(JSON.parse(tasks_json));
 
 class Task {
-    constructor(name, dueDate) {
+    constructor(name, priority, dueDate) {
         this.id = self.crypto.randomUUID();
         this.name = name;
+        this.priority = priority;
         this.dueDate = dueDate;
         this.completed = false;
     }
 }
 
-const createTask = (name, dueDate) => {
-    const task = new Task(name, dueDate);
+const createTask = (name, priority, dueDate) => {
+    const task = new Task(name, priority, dueDate);
     tasks.set(task.id, task);
     storeTasks();
     return task;
@@ -25,9 +26,10 @@ const deleteTask = (task_id) => {
     storeTasks();
 }
 
-const saveTask = (task_id, name, dueDate) => {
+const saveTask = (task_id, name, priority, dueDate) => {
     const task = tasks.get(task_id);
     task.name = name;
+    task.priority = priority;
     task.dueDate = dueDate;
     storeTasks();
 }

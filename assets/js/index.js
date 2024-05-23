@@ -2,10 +2,16 @@
 
 // KONSTANTEN / VARIABLEN
 const elements = {};
+const priorityClassesMap = new Map([
+    [0, "priority-low"],
+    [1, "priority-medium"],
+    [2, "priority-high"]
+]);
 
 // FUNKTIONEN
 const domMapping = () => {
     elements.addButton = document.querySelector('.add-button');
+    elements.prioritySelect = document.querySelector('.add-task .priority-select');
     elements.deleteCompletedButton = document.querySelector('#delete-completed');
     elements.nameInput = document.querySelector('.add-task input[name="name"]');
     elements.dueDateInput = document.querySelector('.add-task input[name="due-date"]');
@@ -19,6 +25,11 @@ const addTaskEl = (task) => {
 
     taskEl.setAttribute('data-task-id', task.id);
     if (task.completed) taskEl.classList.add('completed');
+
+    // Add class for priority
+    const priorityClass = priorityClassesMap.get(task.priority);
+    taskEl.classList.add(priorityClass);
+
     const taskNameEl = taskEl.querySelector('.task-name');
     taskNameEl.textContent = task.name;
 
@@ -38,6 +49,8 @@ const addTaskEl = (task) => {
     // set values for input elements
     const nameInput = taskEl.querySelector('.task-edit input[name=name]');
     nameInput.value = task.name;
+    const prioritySelect = taskEl.querySelector('.task-edit select[name=priority]');
+    prioritySelect.value = task.priority;
     const dateInput = taskEl.querySelector('.task-edit input[name=due-date]');
     if (task.dueDate) dateInput.value = task.dueDate;
 
@@ -67,10 +80,11 @@ const reloadTaskList = () => {
 
 // EVENT HANDLERS
 const addTaskHandler = (evt) => {
+    const priority = Number(elements.prioritySelect.value);
     const name = elements.nameInput.value;
     const dueDate = elements.dueDateInput.value;
     if (name) {
-        createTask(name, dueDate);
+        createTask(name, priority, dueDate);
         reloadTaskList();
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');
@@ -86,9 +100,10 @@ const saveTaskHandler = (evt) => {
     const taskEl = evt.currentTarget.closest('.task');
     const task_id = taskEl.getAttribute('data-task-id');
     const nameEl = taskEl.querySelector('.task-edit input[name=name]');
+    const priorityEl = taskEl.querySelector('.task-edit select[name=priority]');
     const dueDateEl = taskEl.querySelector('.task-edit input[name=due-date]');
 
-    saveTask(task_id, nameEl.value, dueDateEl.value);
+    saveTask(task_id, nameEl.value, Number(priorityEl.value), dueDateEl.value);
     reloadTaskList();
 
 }
