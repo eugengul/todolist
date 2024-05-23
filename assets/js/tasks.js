@@ -53,7 +53,20 @@ const deleteCompletedTasks = () => {
     reloadTaskList();
 }
 
+const compareCompletionPriority = (task1, task2) => {
+    let compareResult = task1.completed - task2.completed;
+    // compare priority only if completion statuses are the same
+    if (compareResult == 0) {
+        compareResult = task2.priority - task1.priority;
+    }
+    return compareResult;
+}
+
 const sortTasksByCompletion = () => {
     return new Map([...tasks.entries()].sort(
-        (a, b) => a[1].completed > b[1].completed));
+        (entry1, entry2) => {
+            const task1 = entry1[1];
+            const task2 = entry2[1];
+            return compareCompletionPriority(task1, task2);
+        }))
 }
