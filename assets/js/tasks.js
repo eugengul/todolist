@@ -1,7 +1,7 @@
 'use strict';
 
 // load tasks from localStorage
-let tasks_json = localStorage.getItem('tasks');
+const tasks_json = localStorage.getItem('tasks');
 const tasks = new Map(JSON.parse(tasks_json));
 
 class Task {
@@ -14,7 +14,7 @@ class Task {
 }
 
 const createTask = (name, dueDate) => {
-    let task = new Task(name, dueDate);
+    const task = new Task(name, dueDate);
     tasks.set(task.id, task);
     storeTasks();
     return task;
@@ -26,20 +26,20 @@ const deleteTask = (task_id) => {
 }
 
 const saveTask = (task_id, name, dueDate) => {
-    let task = tasks.get(task_id);
+    const task = tasks.get(task_id);
     task.name = name;
     task.dueDate = dueDate;
     storeTasks();
 }
 
 const toggleTask = (task_id) => {
-    let task = tasks.get(task_id);
+    const task = tasks.get(task_id);
     task.completed = !task.completed;
     storeTasks();
 }
 
 const storeTasks = () => {
-    let tasks_json = JSON.stringify([...tasks]);
+    const tasks_json = JSON.stringify([...tasks]);
     localStorage.setItem('tasks', tasks_json);
 }
 

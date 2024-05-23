@@ -68,9 +68,9 @@ const reloadTaskList = () => {
 // EVENT HANDLERS
 const addTaskHandler = (evt) => {
     const name = elements.nameInput.value;
-    let dueDate = elements.dueDateInput.value;
+    const dueDate = elements.dueDateInput.value;
     if (name) {
-        let task = createTask(name, dueDate);
+        createTask(name, dueDate);
         reloadTaskList();
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');
@@ -85,8 +85,8 @@ const editTaskHandler = (evt) => {
 const saveTaskHandler = (evt) => {
     const taskEl = evt.currentTarget.closest('.task');
     const task_id = taskEl.getAttribute('data-task-id');
-    let nameEl = taskEl.querySelector('.task-edit input[name=name]');
-    let dueDateEl = taskEl.querySelector('.task-edit input[name=due-date]');
+    const nameEl = taskEl.querySelector('.task-edit input[name=name]');
+    const dueDateEl = taskEl.querySelector('.task-edit input[name=due-date]');
 
     saveTask(task_id, nameEl.value, dueDateEl.value);
     reloadTaskList();
