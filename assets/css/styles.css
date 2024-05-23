@@ -35,7 +35,7 @@ footer {
     gap: 10px;
 }
 
-.add-task input, select {
+.add-task input, .add-task select {
     flex: 1;
     width: 0;
     font-size: 1.2rem;
@@ -60,11 +60,12 @@ footer {
 }
 
 /* List */
-.todo ul {
+ul.todo-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
-.todo li {
+ul.todo-list li {
     display: flex;
     gap: 10px;
     align-items: center;
@@ -76,34 +77,34 @@ footer {
     border-radius: 5px;
 }
 
-.todo .task-info {
+.todo-list .task-info {
     flex-grow: 1;
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
-.todo .task-name {
+.todo-list .task-name {
     margin-right: auto;
 }
 
-.todo .due-date {
+.todo-list .due-date {
     color: #b1b1b1;
     font-size: 1.2rem;
 }
 
-.todo .due-date.failed {
+.todo-list .due-date.failed {
     color: #aa0000;
 }
 
-.todo .due-date.today {
+.todo-list .due-date.today {
     color: #0099ff;
 }
 
-.todo .completed {
+.todo-list .completed {
     opacity: 0.5;
 }
-.todo .completed .task-name {
+.todo-list .completed .task-name {
     text-decoration: line-through;
 }
 
@@ -127,7 +128,7 @@ footer {
     align-items: center;
 }
 
-.task-edit input {
+.task-edit input, .task-edit select {
     font-size: 1.2rem;
 }
 
