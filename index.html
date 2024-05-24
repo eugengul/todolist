@@ -21,7 +21,7 @@
     </header>
     <main>
         <div class="todo">
-            <div class="add-task">
+            <form id="add-task-form" class="task-form">
                 <select class="priority-select" name="priority">
                     <option class="priority-low" value="0">Niedrig</option>
                     <option class="priority-medium" value="1">Mittel</option>
@@ -29,8 +29,8 @@
                 </select>
                 <input name="name" placeholder="Aufgabenname">
                 <input type="date" name="due-date" placeholder="Due date">
-                <button class="add-button"><img src="./assets/images/icons/add.svg"></button>
-            </div>
+                <submit class="add-button"><img src="./assets/images/icons/add.svg" alt="Add icon"></submit>
+            </form>
             <template id="task-template">
                 <li class="task" data-task-id="0">
                     <div class="task-info">
@@ -49,16 +49,17 @@
                         </button>
                     </div>
                     <div class="task-edit">
-                        <select class="priority-select" name="priority">
-                            <option class="priority-low" value="0">Niedrig</option>
-                            <option class="priority-medium" value="1">Mittel</option>
-                            <option class="priority-high" value="2">Hoch</option>
-                        </select>
-                        <input name="name">
-                        <input name="due-date" type="date">
-                        <button class="save-button">
-                            <img src="./assets/images/icons/save.svg" alt="Save icon">
-                        </button>
+                        <form class="task-form">
+                            <select class="priority-select" name="priority">
+                                <option class="priority-low" value="0">Niedrig</option>
+                                <option class="priority-medium" value="1">Mittel</option>
+                                <option class="priority-high" value="2">Hoch</option>
+                            </select>
+                            <input name="name" placeholder="Aufgabenname">
+                            <input type="date" name="due-date" placeholder="Due date">
+                            <submit class="save-button"><img src="./assets/images/icons/save.svg" alt="Save icon">
+                            </submit>
+                        </form>
                     </div>
                 </li>
             </template>

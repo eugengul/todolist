@@ -29,32 +29,32 @@ footer {
 }
 
 /* Add task */
-.add-task {
+.task-form {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.add-task input, .add-task select {
+.task-form input, .task-form select {
     flex: 1;
     width: 0;
     font-size: 1.2rem;
-    padding: 5px;
+    padding: 3px;
     border: 2px solid #eee;
     border-radius: 5px;
     box-sizing: border-box;
 }
 
-.add-task select {
+.task-form select {
     flex-grow: 0;
     flex-basis: 120px;
 }
 
-.add-task input[name="name"] {
+.task-form input[name="name"] {
     flex-basis: 200px;
 }
 
-.add-task input[name="due-date"] {
+.task-form input[name="due-date"] {
     flex-grow: 0;
     flex-basis: 180px;
 }
@@ -119,27 +119,7 @@ ul.todo-list li {
 /* Edit task */
 .task-edit {
     display: none;
-}
-
-.task-edit {
-    flex-grow: 1;
-    display: none;
-    gap: 10px;
-    align-items: center;
-}
-
-.task-edit input, .task-edit select {
-    font-size: 1.2rem;
-}
-
-.task-edit input[name="name"] {
-    flex-grow: 1;
-    flex-basis: 200px;
-}
-
-.task-edit input[name="due-date"] {
-    flex-grow: 0;
-    flex-basis: 170px;
+    width: 100%;
 }
 
 .task.edit .task-info {
@@ -147,11 +127,7 @@ ul.todo-list li {
 }
 
 .task.edit .task-edit {
-    display: flex;
-}
-
-.task.edit .edit-button {
-    background-color: #0099ff;
+    display: block;
 }
 
 /* checkbox button */
@@ -167,7 +143,7 @@ ul.todo-list li {
     display: block;
 }
 
-button {
+button, submit {
     display: flex;
     align-items: center;
     justify-content: center;

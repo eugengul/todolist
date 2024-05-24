@@ -10,17 +10,17 @@ const priorityClassesMap = new Map([
 
 // FUNKTIONEN
 const domMapping = () => {
-    elements.addButton = document.querySelector('.add-button');
-    elements.prioritySelect = document.querySelector('.add-task .priority-select');
+    elements.addButton = document.querySelector('#add-task-form .add-button');
+    elements.taskTemplate = document.querySelector('#task-template');
+    elements.prioritySelect = document.querySelector('#add-task-form .priority-select');
     elements.deleteCompletedButton = document.querySelector('#delete-completed');
-    elements.nameInput = document.querySelector('.add-task input[name="name"]');
-    elements.dueDateInput = document.querySelector('.add-task input[name="due-date"]');
+    elements.nameInput = document.querySelector('#add-task-form input[name="name"]');
+    elements.dueDateInput = document.querySelector('#add-task-form input[name="due-date"]');
     elements.todoUl = document.querySelector('.todo-list');
 }
 
 const addTaskEl = (task) => {
-    const taskTemplate = document.querySelector('#task-template');
-    const taskTemplateClone = taskTemplate.content.cloneNode(true)
+    const taskTemplateClone = elements.taskTemplate.content.cloneNode(true)
     const taskEl = taskTemplateClone.querySelector('.task');
 
     taskEl.setAttribute('data-task-id', task.id);
@@ -61,7 +61,7 @@ const addTaskEl = (task) => {
     checkboxButton.addEventListener('click', toggleTaskHandler);
     const editButton = taskEl.querySelector('.edit-button');
     editButton.addEventListener('click', editTaskHandler);
-    const saveButton = taskEl.querySelector('.save-button');
+    const saveButton = taskEl.querySelector('submit.save-button');
     saveButton.addEventListener('click', saveTaskHandler);
     elements.todoUl.append(taskEl);
 };
