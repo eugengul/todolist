@@ -1,3 +1,5 @@
+'use strict';
+
 const addTaskHandler = (evt) => {
     const priority = Number(elements.prioritySelect.value);
     const name = elements.nameInput.value;
@@ -47,4 +49,23 @@ const toggleTaskHandler = (evt) => {
 const deleteCompletedHandler = () => {
     deleteCompletedTasks();
     reloadTaskList();
+}
+
+const loginHandler = (evt) => {
+    elements.loginButton.disabled = true;
+    let loginData = new FormData(elements.loginForm);
+    loginData = JSON.stringify(Object.fromEntries(loginData));
+    auth.login(loginData, updateAuthBlock);
+}
+
+const signUpHandler = (evt) => {
+    elements.signUpButton.disabled = true;
+    let loginData = new FormData(elements.loginForm);
+    loginData = JSON.stringify(Object.fromEntries(loginData));
+    auth.signUp(loginData, updateAuthBlock);
+}
+
+const logoutHandler = (evt) => {
+    auth.logout();
+    updateAuthBlock();
 }

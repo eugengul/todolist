@@ -28,6 +28,40 @@ footer {
     text-align: center;
 }
 
+/* Authorisation */
+
+#auth {
+    padding: 10px 0;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+#user-info {
+    display: none;
+}
+
+#login-form {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#auth.logged-in #user-info {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+#auth.logged-in #login-form {
+    display: none;
+}
+
+#login-error {
+    font-size: 1rem;
+    color: #aa0000;
+}
+
 /* Add task */
 .task-form {
     display: flex;

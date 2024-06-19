@@ -10,6 +10,16 @@ const priorityClassesMap = new Map([
 
 // FUNKTIONEN
 const domMapping = () => {
+    // auth
+    elements.authBlock = document.querySelector('#auth');
+    elements.loginForm = document.querySelector('#login-form');
+    elements.loginError = document.querySelector('#login-error');
+    elements.loginButton = document.querySelector('#login-button');
+    elements.signUpButton = document.querySelector('#signup-button');
+    elements.logoutButton = document.querySelector('#logout-button');
+    elements.userInfo = document.querySelector('#user-info');
+
+    //tasks
     elements.addButton = document.querySelector('#add-task-form .add-button');
     elements.taskTemplate = document.querySelector('#task-template');
     elements.prioritySelect = document.querySelector('#add-task-form .priority-select');
@@ -88,15 +98,35 @@ const reloadTaskList = () => {
     }
 }
 
+const updateAuthBlock = (err) => {
+    if (auth.accessToken) {
+        // If user logged in hide form and show user info
+        elements.authBlock.classList.add('logged-in');
+        const userNameEl = elements.userInfo.querySelector('#user-name');
+        elements.loginForm.reset();
+        userNameEl.textContent = localStorage.getItem('username');
+    } else {
+        // otherwise show form
+        elements.authBlock.classList.remove('logged-in');
+        elements.loginButton.disabled = false;
+        elements.signUpButton.disabled = false;
+        elements.loginError.textContent = err;
+    }
+}
+
 const appendEventlisteners = () => {
     elements.addButton.addEventListener('click', addTaskHandler);
     elements.deleteCompletedButton.addEventListener('click', deleteCompletedHandler);
+    elements.loginButton.addEventListener('click', loginHandler);
+    elements.signUpButton.addEventListener('click', signUpHandler);
+    elements.logoutButton.addEventListener('click', logoutHandler);
 }
 
 const init = () => {
     domMapping();
     appendEventlisteners();
     reloadTaskList();
+    updateAuthBlock();
 }
 
 // INIT
