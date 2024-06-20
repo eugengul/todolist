@@ -11,7 +11,9 @@ class Task {
         this.priority = priority;
         this.dueDate = dueDate;
         this.completed = false;
+        this.created = Date.now();
         this.lastUpdated = Date.now();
+        this.deleted = false;
     }
 }
 
@@ -23,7 +25,8 @@ const createTask = (name, priority, dueDate) => {
 }
 
 const deleteTask = (task_id) => {
-    tasks.delete(task_id);
+    const task = tasks.get(task_id);
+    task.deleted = true;
     storeTasks();
 }
 
@@ -50,7 +53,10 @@ const storeTasks = () => {
 
 const deleteCompletedTasks = () => {
     for (const task of tasks.values()) {
-        if (task.completed) tasks.delete(task.id);
+        if (task.completed) {
+            console.log(task);
+            task.deleted = true;
+        }
     }
     storeTasks();
     reloadTaskList();
@@ -62,20 +68,30 @@ const deleteAllTasks = () => {
     reloadTaskList();
 }
 
-const compareCompletionPriority = (task1, task2) => {
+// Compare tasks by creation date -> completion status -> priority
+const compareTasks= (task1, task2) => {
+    // Compare tasks by completion status
     let compareResult = task1.completed - task2.completed;
-    // compare priority only if completion statuses are the same
-    if (compareResult == 0) {
+    // Compare priority only if completion statuses are the same
+    if (compareResult == 0)
         compareResult = task2.priority - task1.priority;
-    }
+    // Compare by creation time if status and priority are the same
+    if (compareResult == 0)
+        compareResult = task2.created - task1.created;
     return compareResult;
 }
 
+const excludeDeletedTasks = () => {
+    return new Map([...tasks.entries()].filter(
+        task => !task[1].deleted))
+}
+
 const sortTasksByCompletion = () => {
-    return new Map([...tasks.entries()].sort(
+    const filteredTasks = excludeDeletedTasks();
+    return new Map([...filteredTasks.entries()].sort(
         (entry1, entry2) => {
             const task1 = entry1[1];
             const task2 = entry2[1];
-            return compareCompletionPriority(task1, task2);
+            return compareTasks(task1, task2);
         }))
 }
