@@ -67,5 +67,29 @@ const signUpHandler = (evt) => {
 
 const logoutHandler = (evt) => {
     auth.logout();
-    updateAuthBlock();
+}
+
+const syncHandler = (evt) => {
+    const syncButton = elements.syncButton;
+    syncButton.disabled = true;
+    const buttonName = syncButton.textContent;
+    syncButton.textContent = 'Syncing...'
+
+    syncTasks().then(() => {
+        storeTasks();
+        reloadTaskList();
+        syncButton.classList.add('success');
+        setTimeout(() => {
+            syncButton.classList.remove('success');
+          }, "1000");
+    }).catch(err => {
+        syncButton.classList.add('error');
+        alert(err);
+        console.warn(err)
+    }
+    ).finally(() => {
+        syncButton.textContent = buttonName;
+        elements.syncButton.disabled = false;
+    }
+    );
 }

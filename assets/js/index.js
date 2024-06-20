@@ -10,7 +10,7 @@ const priorityClassesMap = new Map([
 
 // FUNKTIONEN
 const domMapping = () => {
-    // auth
+    // Auth
     elements.authBlock = document.querySelector('#auth');
     elements.loginForm = document.querySelector('#login-form');
     elements.loginError = document.querySelector('#login-error');
@@ -19,7 +19,10 @@ const domMapping = () => {
     elements.logoutButton = document.querySelector('#logout-button');
     elements.userInfo = document.querySelector('#user-info');
 
-    //tasks
+    // Sync
+    elements.syncButton = document.querySelector('#sync-button');
+
+    // Tasks
     elements.addButton = document.querySelector('#add-task-form .add-button');
     elements.taskTemplate = document.querySelector('#task-template');
     elements.prioritySelect = document.querySelector('#add-task-form .priority-select');
@@ -115,11 +118,17 @@ const updateAuthBlock = (err) => {
 }
 
 const appendEventlisteners = () => {
-    elements.addButton.addEventListener('click', addTaskHandler);
-    elements.deleteCompletedButton.addEventListener('click', deleteCompletedHandler);
+    // Auth
     elements.loginButton.addEventListener('click', loginHandler);
     elements.signUpButton.addEventListener('click', signUpHandler);
     elements.logoutButton.addEventListener('click', logoutHandler);
+
+    // Sync
+    elements.syncButton.addEventListener('click', syncHandler);
+
+    // Tasks
+    elements.addButton.addEventListener('click', addTaskHandler);
+    elements.deleteCompletedButton.addEventListener('click', deleteCompletedHandler);
 }
 
 const init = () => {

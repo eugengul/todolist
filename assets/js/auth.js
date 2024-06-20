@@ -84,6 +84,8 @@ const logout = () => {
     accessToken = null;
     localStorage.removeItem("accessToken");
     localStorage.removeItem("username");
+    updateAuthBlock();
+    deleteAllTasks();
 }
 
 const auth = {

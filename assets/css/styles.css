@@ -28,6 +28,14 @@ footer {
     text-align: center;
 }
 
+button.success {
+    background-color: #88ffdd;
+}
+
+button.error {
+    background-color: #aa0000;
+}
+
 /* Authorisation */
 
 #auth {

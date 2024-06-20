@@ -11,6 +11,7 @@ class Task {
         this.priority = priority;
         this.dueDate = dueDate;
         this.completed = false;
+        this.lastUpdated = Date.now();
     }
 }
 
@@ -31,12 +32,14 @@ const saveTask = (task_id, name, priority, dueDate) => {
     task.name = name;
     task.priority = priority;
     task.dueDate = dueDate;
+    task.lastUpdated = Date.now();
     storeTasks();
 }
 
 const toggleTask = (task_id) => {
     const task = tasks.get(task_id);
     task.completed = !task.completed;
+    task.lastUpdated = Date.now();
     storeTasks();
 }
 
@@ -49,6 +52,12 @@ const deleteCompletedTasks = () => {
     for (const task of tasks.values()) {
         if (task.completed) tasks.delete(task.id);
     }
+    storeTasks();
+    reloadTaskList();
+}
+
+const deleteAllTasks = () => {
+    tasks.clear();
     storeTasks();
     reloadTaskList();
 }
