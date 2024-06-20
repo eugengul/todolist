@@ -1,12 +1,18 @@
 'use strict';
 
+import auth from './auth.js';
+import dom from './dom.js';
+import sync from './sync.js';
+import tasks from './tasks.js';
+
+// Tasks
 const addTaskHandler = (evt) => {
-    const priority = Number(elements.prioritySelect.value);
-    const name = elements.nameInput.value;
-    const dueDate = elements.dueDateInput.value;
+    const priority = Number(dom.elements.prioritySelect.value);
+    const name = dom.elements.nameInput.value;
+    const dueDate = dom.elements.dueDateInput.value;
     if (name) {
-        createTask(name, priority, dueDate);
-        reloadTaskList();
+        tasks.createTask(name, priority, dueDate);
+        dom.reloadTaskList();
     } else {
         alert('Der Aufgabenname darf nicht leer sein.');
     }
@@ -24,8 +30,8 @@ const saveTaskHandler = (evt) => {
     const priorityEl = taskEl.querySelector('.task-edit select[name=priority]');
     const dueDateEl = taskEl.querySelector('.task-edit input[name=due-date]');
 
-    saveTask(task_id, nameEl.value, Number(priorityEl.value), dueDateEl.value);
-    reloadTaskList();
+    tasks.saveTask(task_id, nameEl.value, Number(priorityEl.value), dueDateEl.value);
+    dom.reloadTaskList();
 
 }
 
@@ -33,7 +39,7 @@ const removeTaskHandler = (evt) => {
     const taskEl = evt.currentTarget.closest('.task');
     const task_id = taskEl.getAttribute('data-task-id');
 
-    deleteTask(task_id);
+    tasks.deleteTask(task_id);
     taskEl.remove();
 }
 
@@ -42,46 +48,50 @@ const toggleTaskHandler = (evt) => {
     taskEl.classList.toggle('completed')
 
     const task_id = taskEl.getAttribute('data-task-id');
-    toggleTask(task_id);
-    reloadTaskList();
+    tasks.toggleTask(task_id);
+    dom.reloadTaskList();
 }
 
 const deleteCompletedHandler = () => {
-    deleteCompletedTasks();
-    reloadTaskList();
+    tasks.deleteCompletedTasks();
+    dom.reloadTaskList();
 }
 
+// Auth
+
 const loginHandler = (evt) => {
-    elements.loginButton.disabled = true;
-    let loginData = new FormData(elements.loginForm);
+    dom.elements.loginButton.disabled = true;
+    let loginData = new FormData(dom.elements.loginForm);
     loginData = JSON.stringify(Object.fromEntries(loginData));
-    auth.login(loginData, updateAuthBlock);
+    auth.login(loginData, dom.updateAuthBlock);
 }
 
 const signUpHandler = (evt) => {
-    elements.signUpButton.disabled = true;
-    let loginData = new FormData(elements.loginForm);
+    dom.elements.signUpButton.disabled = true;
+    let loginData = new FormData(dom.elements.loginForm);
     loginData = JSON.stringify(Object.fromEntries(loginData));
-    auth.signUp(loginData, updateAuthBlock);
+    auth.signUp(loginData, dom.updateAuthBlock);
 }
 
 const logoutHandler = (evt) => {
     auth.logout();
 }
 
+// Sync
+
 const syncHandler = (evt) => {
-    const syncButton = elements.syncButton;
+    const syncButton = dom.elements.syncButton;
     syncButton.disabled = true;
     const buttonName = syncButton.textContent;
     syncButton.textContent = 'Syncing...'
-
-    syncTasks().then(() => {
-        storeTasks();
-        reloadTaskList();
+    syncButton.className = "";
+    sync.syncTasks().then(() => {
+        tasks.storeTasks();
+        dom.reloadTaskList();
         syncButton.classList.add('success');
         setTimeout(() => {
             syncButton.classList.remove('success');
-          }, "1000");
+        }, "1000");
     }).catch(err => {
         syncButton.classList.add('error');
         alert(err);
@@ -89,7 +99,27 @@ const syncHandler = (evt) => {
     }
     ).finally(() => {
         syncButton.textContent = buttonName;
-        elements.syncButton.disabled = false;
+        dom.elements.syncButton.disabled = false;
     }
     );
 }
+
+const handlers = {
+    // Tasks
+    addTaskHandler,
+    editTaskHandler,
+    saveTaskHandler,
+    removeTaskHandler,
+    toggleTaskHandler,
+    deleteCompletedHandler,
+
+    // Auth
+    loginHandler,
+    signUpHandler,
+    logoutHandler,
+
+    // Sync
+    syncHandler,
+}
+
+export default handlers;

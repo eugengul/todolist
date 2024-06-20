@@ -1,7 +1,10 @@
 'use strict';
 
+import auth from './auth.js';
+import tasks from './tasks.js';
+
 const syncTasks = (callback) => {
-    const tasksToSync = [...tasks.values()];
+    const tasksToSync = [...tasks.tasksMap.values()];
     tasksToSync.map(task => delete task.id);
 
     const tasks_json = JSON.stringify(
@@ -16,10 +19,16 @@ const syncTasks = (callback) => {
         }
     }).then((response) => response.json())
         .then(response => {
-            tasks.clear();
+            tasks.tasksMap.clear();
             response.tasks.forEach(task => {
                 task.id = task._id;
-                tasks.set(task.id, task);
+                tasks.tasksMap.set(task.id, task);
             });
         })
 }
+
+const sync = {
+    syncTasks,
+}
+
+export default sync;

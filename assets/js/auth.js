@@ -1,5 +1,8 @@
 'use strict';
 
+import dom from './dom.js';
+import tasks from './tasks.js';
+
 let accessToken = localStorage.getItem('accessToken');
 
 const login = (loginData, callback) => {
@@ -84,8 +87,8 @@ const logout = () => {
     accessToken = null;
     localStorage.removeItem("accessToken");
     localStorage.removeItem("username");
-    updateAuthBlock();
-    deleteAllTasks();
+    dom.updateAuthBlock();
+    tasks.deleteAllTasks();
 }
 
 const auth = {
@@ -98,3 +101,5 @@ const auth = {
         return accessToken;
     },
 }
+
+export default auth;

@@ -1,8 +1,10 @@
 'use strict';
 
+import dom from './dom.js';
+
 // load tasks from localStorage
 const tasks_json = localStorage.getItem('tasks');
-const tasks = new Map(JSON.parse(tasks_json));
+const tasksMap = new Map(JSON.parse(tasks_json));
 
 class Task {
     constructor(name, priority, dueDate) {
@@ -19,19 +21,19 @@ class Task {
 
 const createTask = (name, priority, dueDate) => {
     const task = new Task(name, priority, dueDate);
-    tasks.set(task.id, task);
+    tasksMap.set(task.id, task);
     storeTasks();
     return task;
 }
 
 const deleteTask = (task_id) => {
-    const task = tasks.get(task_id);
+    const task = tasksMap.get(task_id);
     task.deleted = true;
     storeTasks();
 }
 
 const saveTask = (task_id, name, priority, dueDate) => {
-    const task = tasks.get(task_id);
+    const task = tasksMap.get(task_id);
     task.name = name;
     task.priority = priority;
     task.dueDate = dueDate;
@@ -40,32 +42,31 @@ const saveTask = (task_id, name, priority, dueDate) => {
 }
 
 const toggleTask = (task_id) => {
-    const task = tasks.get(task_id);
+    const task = tasksMap.get(task_id);
     task.completed = !task.completed;
     task.lastUpdated = Date.now();
     storeTasks();
 }
 
 const storeTasks = () => {
-    const tasks_json = JSON.stringify([...tasks]);
+    const tasks_json = JSON.stringify([...tasksMap]);
     localStorage.setItem('tasks', tasks_json);
 }
 
 const deleteCompletedTasks = () => {
-    for (const task of tasks.values()) {
+    for (const task of tasksMap.values()) {
         if (task.completed) {
-            console.log(task);
             task.deleted = true;
         }
     }
     storeTasks();
-    reloadTaskList();
+    dom.reloadTaskList();
 }
 
 const deleteAllTasks = () => {
-    tasks.clear();
+    tasksMap.clear();
     storeTasks();
-    reloadTaskList();
+    dom.reloadTaskList();
 }
 
 // Compare tasks by creation date -> completion status -> priority
@@ -82,7 +83,7 @@ const compareTasks= (task1, task2) => {
 }
 
 const excludeDeletedTasks = () => {
-    return new Map([...tasks.entries()].filter(
+    return new Map([...tasksMap.entries()].filter(
         task => !task[1].deleted))
 }
 
@@ -95,3 +96,18 @@ const sortTasksByCompletion = () => {
             return compareTasks(task1, task2);
         }))
 }
+
+const tasks = {
+    tasksMap,
+    Task,
+    createTask,
+    deleteTask,
+    saveTask,
+    toggleTask,
+    storeTasks,
+    deleteCompletedTasks,
+    deleteAllTasks,
+    sortTasksByCompletion
+}
+
+export default tasks;
