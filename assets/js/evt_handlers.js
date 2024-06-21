@@ -63,7 +63,8 @@ const loginHandler = (evt) => {
     dom.elements.loginButton.disabled = true;
     let loginData = new FormData(dom.elements.loginForm);
     loginData = JSON.stringify(Object.fromEntries(loginData));
-    auth.login(loginData, dom.updateAuthBlock);
+    auth.login(loginData).then(() => syncTasksAndReload())
+        .catch(console.warn);
 }
 
 const signUpHandler = (evt) => {
@@ -79,15 +80,21 @@ const logoutHandler = (evt) => {
 
 // Sync
 
+const syncTasksAndReload = (evt) => {
+    return sync.syncTasks().then(() => {
+        tasks.storeTasks();
+        dom.reloadTaskList();
+        dom.updateAuthBlock();
+    })
+}
+
 const syncHandler = (evt) => {
     const syncButton = dom.elements.syncButton;
     syncButton.disabled = true;
     const buttonName = syncButton.textContent;
     syncButton.textContent = 'Syncing...'
     syncButton.className = "";
-    sync.syncTasks().then(() => {
-        tasks.storeTasks();
-        dom.reloadTaskList();
+    syncTasksAndReload().then(() => {
         syncButton.classList.add('success');
         setTimeout(() => {
             syncButton.classList.remove('success');

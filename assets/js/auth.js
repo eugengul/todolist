@@ -5,8 +5,8 @@ import tasks from './tasks.js';
 
 let accessToken = localStorage.getItem('accessToken');
 
-const login = (loginData, callback) => {
-    fetch("./auth/login", {
+const login = (loginData) => {
+    return fetch("./auth/login", {
         method: "POST",
         body: loginData,
         headers: {
@@ -27,7 +27,6 @@ const login = (loginData, callback) => {
                 localStorage.setItem('accessToken', accessToken);
                 const user = response['user'];
                 localStorage.setItem('username', user.username)
-                callback();
             }
         }).catch(
             (err) => {
