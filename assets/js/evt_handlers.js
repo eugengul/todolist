@@ -64,7 +64,11 @@ const loginHandler = (evt) => {
     let loginData = new FormData(dom.elements.loginForm);
     loginData = JSON.stringify(Object.fromEntries(loginData));
     auth.login(loginData).then(() => syncTasksAndReload())
-        .catch(console.warn);
+        .catch((err => {
+            dom.updateAuthBlock(err);
+            console.warn(err);
+        })
+    );
 }
 
 const signUpHandler = (evt) => {

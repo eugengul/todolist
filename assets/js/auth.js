@@ -28,11 +28,7 @@ const login = (loginData) => {
                 const user = response['user'];
                 localStorage.setItem('username', user.username)
             }
-        }).catch(
-            (err) => {
-                console.warn(err);
-                callback(err.message);
-            });
+        })
 }
 
 const signUp = (signUpData, callback) => {
