@@ -1,0 +1,207 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    padding: 0 10px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin-right: auto;
+}
+
+header #delete-completed {
+    color: #ffffff;
+    background-color: #0099ff;
+    height: fit-content;
+    padding: 10px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+button.success {
+    background-color: #88ffdd;
+}
+
+button.error {
+    background-color: #aa0000;
+}
+
+/* Authorisation */
+
+#auth {
+    padding: 10px 0;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+#user-info {
+    display: none;
+}
+
+#login-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#login-form input {
+    width: 90px;
+}
+
+#auth.logged-in #user-info {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+#auth.logged-in #login-form {
+    display: none;
+}
+
+#login-error {
+    flex-basis: 100%;
+    font-size: 1rem;
+    color: #aa0000;
+}
+
+/* Add task */
+.task-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-form input, .task-form select {
+    flex: 1;
+    width: 0;
+    font-size: 1.2rem;
+    padding: 3px;
+    border: 2px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.task-form select {
+    flex-grow: 0;
+    flex-basis: 120px;
+}
+
+.task-form input[name="name"] {
+    flex-basis: 200px;
+}
+
+.task-form input[name="due-date"] {
+    flex-grow: 0;
+    flex-basis: 180px;
+}
+
+/* List */
+ul.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul.todo-list li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    font-size: 1.2rem;
+    margin: 10px 0;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.todo-list .task-info {
+    flex-grow: 1;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.todo-list .task-name {
+    margin-right: auto;
+}
+
+.todo-list .due-date {
+    color: #b1b1b1;
+    font-size: 1.2rem;
+}
+
+.todo-list .due-date.failed {
+    color: #aa0000;
+}
+
+.todo-list .due-date.today {
+    color: #0099ff;
+}
+
+.todo-list .completed {
+    opacity: 0.5;
+}
+.todo-list .completed .task-name {
+    text-decoration: line-through;
+}
+
+.todo-list .priority-medium .checkbox-button {
+    background-color: #c5800059;
+}
+
+.todo-list .priority-high .checkbox-button {
+    background-color: #b8000059;
+}
+
+/* Edit task */
+.task-edit {
+    display: none;
+    width: 100%;
+}
+
+.task.edit .task-info {
+    display: none;
+}
+
+.task.edit .task-edit {
+    display: block;
+}
+
+/* checkbox button */
+.checkbox-button .selected {
+    display: none;
+}
+
+.completed .checkbox-button .unselected {
+    display: none;
+}
+
+.completed .checkbox-button .selected {
+    display: block;
+}
+
+button, submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 0;
+    background-color: #c5c5c5c9;
+}
+
+button:hover {
+    filter: brightness(85%);
+}
