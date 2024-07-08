@@ -1,8 +1,6 @@
 'use strict';
 
-import auth from './auth.js';
 import dom from './dom.js';
-import sync from './sync.js';
 import tasks from './tasks.js';
 
 // Tasks
@@ -57,64 +55,6 @@ const deleteCompletedHandler = () => {
     dom.reloadTaskList();
 }
 
-// Auth
-
-const loginHandler = (evt) => {
-    dom.elements.loginButton.disabled = true;
-    let loginData = new FormData(dom.elements.loginForm);
-    loginData = JSON.stringify(Object.fromEntries(loginData));
-    auth.login(loginData).then(() => syncTasksAndReload())
-        .catch((err => {
-            dom.updateAuthBlock(err);
-            console.warn(err);
-        })
-    );
-}
-
-const signUpHandler = (evt) => {
-    dom.elements.signUpButton.disabled = true;
-    let loginData = new FormData(dom.elements.loginForm);
-    loginData = JSON.stringify(Object.fromEntries(loginData));
-    auth.signUp(loginData, dom.updateAuthBlock);
-}
-
-const logoutHandler = (evt) => {
-    auth.logout();
-}
-
-// Sync
-
-const syncTasksAndReload = (evt) => {
-    return sync.syncTasks().then(() => {
-        tasks.storeTasks();
-        dom.reloadTaskList();
-        dom.updateAuthBlock();
-    })
-}
-
-const syncHandler = (evt) => {
-    const syncButton = dom.elements.syncButton;
-    syncButton.disabled = true;
-    const buttonName = syncButton.textContent;
-    syncButton.textContent = 'Syncing...'
-    syncButton.className = "";
-    syncTasksAndReload().then(() => {
-        syncButton.classList.add('success');
-        setTimeout(() => {
-            syncButton.classList.remove('success');
-        }, "1000");
-    }).catch(err => {
-        syncButton.classList.add('error');
-        alert(err);
-        console.warn(err)
-    }
-    ).finally(() => {
-        syncButton.textContent = buttonName;
-        dom.elements.syncButton.disabled = false;
-    }
-    );
-}
-
 const handlers = {
     // Tasks
     addTaskHandler,
@@ -123,14 +63,6 @@ const handlers = {
     removeTaskHandler,
     toggleTaskHandler,
     deleteCompletedHandler,
-
-    // Auth
-    loginHandler,
-    signUpHandler,
-    logoutHandler,
-
-    // Sync
-    syncHandler,
 }
 
 export default handlers;
