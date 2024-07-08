@@ -2,7 +2,6 @@
 
 import dom from './dom.js';
 import handlers from './evt_handlers.js';
-import helpesr from './helpers.js'
 
 const appendEventlisteners = () => {
     // Auth
